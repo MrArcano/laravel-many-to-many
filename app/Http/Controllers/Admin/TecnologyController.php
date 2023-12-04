@@ -107,4 +107,8 @@ class TecnologyController extends Controller
         $tecnology->delete();
         return redirect()->route('admin.tecnology.index')->with('success','Cancellato con successo!');
     }
+
+    public function projectTecnology(Tecnology $tecnology){
+        return view('admin.tecnologies.projectsTecnology', compact('tecnology'));
+    }
 }

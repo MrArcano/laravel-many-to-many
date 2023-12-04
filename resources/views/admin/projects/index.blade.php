@@ -60,7 +60,7 @@
                         </td>
                         <td>
                             @forelse ($project->tecnologies as $tecnology)
-                            <span class="badge text-bg-info">{{$tecnology->name}}</span>
+                                <a href="{{route('admin.tecnology.projects-tecnology',$tecnology)}}" class="badge text-bg-info text-decoration-none">{{$tecnology->name}}</a>
                             @empty
                                 -
                             @endforelse
