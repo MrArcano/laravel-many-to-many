@@ -99,7 +99,13 @@
                                     <label class="form-label fw-bold">Tecnologie: </label>
                                 </div>
                                 @foreach ($tecnologies as $tecnology)
-                                    <input type="checkbox" class="btn-check" id="tecnology-{{ $tecnology->id }}" value="{{ $tecnology->id }}" name="tecnologies[]">
+                                    <input
+                                      type="checkbox"
+                                      class="btn-check"
+                                      id="tecnology-{{ $tecnology->id }}"
+                                      value="{{ $tecnology->id }}"
+                                      @if($project?->tecnologies->contains($tecnology->id)) checked @endif
+                                      name="tecnologies[]">
                                     <label class="btn btn-outline-info badge" for="tecnology-{{ $tecnology->id }}">{{ $tecnology->name }}</label>
                                 @endforeach
                             </div>
