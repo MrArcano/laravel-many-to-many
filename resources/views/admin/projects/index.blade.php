@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="project">
+        {{-- @dump($_GET) --}}
         <h1 class="text-center mb-3">Admin Project</h1>
 
         {{-- importo gli alert, per quando viene eliminato un progetto --}}
@@ -18,7 +19,7 @@
                     <th scope="col">Stato</th>
                     <th scope="col">Teamwork</th>
                     <th scope="col">Type:
-                        <form class=" d-inline-block" id="formType" action="{{ route('admin.project.index') }}" method="GET">
+                        <form class=" d-inline-block m-0" id="formType" action="{{ route('admin.project.index') }}" method="GET">
                             <select class="bg-transparent border-0" onchange="filterType()" id="type_id" name="type_id">
                                 <option value="">All</option>
                                 @foreach ($types as $type)
@@ -37,7 +38,6 @@
                     <tr>
                         <th scope="row">{{$project->id}}</th>
                         <td>{{$project->name}}</td>
-
                         @php
                             $start_date = date_create($project->start_date);
                             if($project->end_date){

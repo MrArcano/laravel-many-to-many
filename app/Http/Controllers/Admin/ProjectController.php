@@ -23,11 +23,11 @@ class ProjectController extends Controller
         // Lista dei tipi
         $types = Type::all();
 
-        dump($_GET);
+        // dump($_GET);
 
         // Filtro per id tipo
         $type_id_form = $request->type_id;
-        dump($type_id_form);
+        // dump($type_id_form);
 
         // Lista dei progetti
         if($type_id_form){
@@ -76,6 +76,12 @@ class ProjectController extends Controller
         $project = new Project();
         $project->fill($form_data);
         $project->save();
+
+        if(array_key_exists('tecnologies', $form_data)){
+            $project->tecnologies()->attach($form_data['tecnologies']);
+        }
+
+
         return redirect()->route('admin.project.show', $project )->with('success','Creazione avvenuta con successo!');
     }
 

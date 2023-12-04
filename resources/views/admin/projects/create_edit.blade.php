@@ -14,6 +14,7 @@
                     <div class="row">
                         <div class="col-12 col-lg-8">
                             <div class="mb-3">
+                                {{-- Titolo progetto --}}
                                 <label for="name" class="form-label fw-bold">Titolo progetto: *</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name',$project?->name) }}">
                                 @error('name')
@@ -23,6 +24,7 @@
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="mb-3">
+                                {{-- Stato del progetto --}}
                                 <label for="status" class="form-label fw-bold">Stato: </label>
                                 <select id="status" class="form-select @error('status') is-invalid @enderror" name="status">
                                     <option {{ old('status',$project?->status) === 'In corso' ? 'selected' : '' }} value="In corso">In corso</option>
@@ -38,6 +40,7 @@
                     <div class="row">
                         <div class="col-12 col-lg-4">
                             <div class="mb-3">
+                                {{-- Data inizio --}}
                                 <label for="start_date" class="form-label fw-bold">Data inizio: *</label>
                                 <input type="date" class="form-control @error('start_date') is-invalid @enderror" id="start_date" name="start_date" value="{{ old('start_date',$project?->start_date) }}">
                                 @error('start_date')
@@ -47,6 +50,7 @@
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="mb-3">
+                                {{-- Data fine --}}
                                 <label for="end_date" class="form-label fw-bold">Data fine: </label>
                                 <input type="date" class="form-control @error('end_date') is-invalid @enderror" id="end_date" name="end_date" value="{{ old('end_date',$project?->end_date) }}">
                                 @error('end_date')
@@ -56,6 +60,7 @@
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="mb-3">
+                                {{-- Flag lavoro di gruppo --}}
                                 <label for="is_group_project" class="form-label fw-bold">Lavoro di gruppo: </label>
                                 <select id="is_group_project" class="form-select @error('is_group_project') is-invalid @enderror" name="is_group_project">
                                     <option {{ old('is_group_project',$project?->is_group_project) === 'No' ? 'selected' : '' }} value="No">No</option>
@@ -71,7 +76,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="mb-3">
-
+                                {{-- Tipi --}}
                                 <label for="type_id" class="form-label fw-bold">Tipi: </label>
                                 <select id="type_id" class="form-select @error('type_id') is-invalid @enderror" name="type_id">
                                     <option value="">Seleziona una tipologia</option>
@@ -89,6 +94,22 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="mb-3">
+                                {{-- Tecnologie --}}
+                                <div>
+                                    <label class="form-label fw-bold">Tecnologie: </label>
+                                </div>
+                                @foreach ($tecnologies as $tecnology)
+                                    <input type="checkbox" class="btn-check" id="tecnology-{{ $tecnology->id }}" value="{{ $tecnology->id }}" name="tecnologies[]">
+                                    <label class="btn btn-outline-info badge" for="tecnology-{{ $tecnology->id }}">{{ $tecnology->name }}</label>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                {{-- Descrizione --}}
                                 <label for="description" class="form-label fw-bold">Descrizione: *</label>
                                 <textarea class="form-control @error('description') is-invalid @enderror" id="description" rows="3" name="description">{{ old('description',$project?->description) }}</textarea>
                                 @error('description')
@@ -98,18 +119,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="mb-3">
-                                <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                                    @foreach ($tecnologies as $tecnology)
-                                        <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btncheck1">Checkbox 1</label>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
 
 
                 </div>

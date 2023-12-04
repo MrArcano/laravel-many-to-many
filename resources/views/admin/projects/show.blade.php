@@ -26,6 +26,21 @@
                                     <p>Stato: {{ $project->status }}</p>
                                 </div>
                             </div>
+                            <div class="row">
+                                <p>
+                                    <span>Type:</span>
+                                    <span class="badge text-bg-info">{{ $project->type->name }}</span>
+                                </p>
+                                <p>
+                                    <span>Tecnology: </span>
+                                    @forelse ($project->tecnologies as $tecnology)
+                                        <span class="badge text-bg-info">{{$tecnology->name}}</span>
+                                    @empty
+                                        <span class="badge text-bg-warning">No Tecnology</span>
+                                    @endforelse
+                                </p>
+
+                            </div>
                         </div>
                     </div>
                 </div>
