@@ -77,16 +77,22 @@
                         <div class="col-12">
                             <div class="mb-3">
                                 {{-- Tipi --}}
-                                <label for="type_id" class="form-label fw-bold">Tipi: </label>
-                                <select id="type_id" class="form-select @error('type_id') is-invalid @enderror" name="type_id">
-                                    <option value="">Seleziona una tipologia</option>
-                                    @foreach ($types as $type)
-                                        <option {{ old('type_id',$project?->type?->id) === $type->id ? 'selected' : '' }} value="{{$type->id}}">{{$type->name}}</option>
-                                    @endforeach
-                                </select>
-                                @error('type_id')
-                                    <p class="text-danger">{{ $message }}</p>
-                                @enderror
+                                <div>
+                                    <label class="form-label fw-bold">Tipi: </label>
+                                </div>
+
+                                <input type="radio" checked class="btn-check" id="type-0" value="" name="type_id" >
+                                <label class="btn btn-outline-info badge" for="type-0">No type</label>
+                                @foreach ($types as $type)
+                                    <input
+                                        type="radio"
+                                        {{ old('type_id',$project?->type?->id) === $type->id ? 'checked' : '' }}
+                                        class="btn-check"
+                                        id="type-{{ $type->id }}"
+                                        value="{{$type->id}}"
+                                        name="type_id">
+                                    <label class="btn btn-outline-info badge" for="type-{{ $type->id }}">{{$type->name}}</label>
+                                @endforeach
                             </div>
                         </div>
                     </div>

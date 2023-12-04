@@ -178,6 +178,6 @@ class ProjectController extends Controller
 
         $project->update($form_data);
 
-        return redirect()->route('admin.project.edit', $project)->with('success','Immagine eliminata!');
+        return redirect()->route('admin.project.edit', $project);
     }
 }

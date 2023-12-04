@@ -15,13 +15,12 @@ $colour-gold: #d4cd96 !default;
  *------------*/
 
 .show{
-    height: 400px;
+    min-height: 400px;
     .card-wrapper {
         width: 100%;
         height: 100%;
         .card-csm {
             color: $colour-gold;
-            font-family: 'Fira Sans', sans-serif;
             height: 100%;
         }
     }
