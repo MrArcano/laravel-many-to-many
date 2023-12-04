@@ -100,12 +100,16 @@
                                 </div>
                                 @foreach ($tecnologies as $tecnology)
                                     <input
-                                      type="checkbox"
-                                      class="btn-check"
-                                      id="tecnology-{{ $tecnology->id }}"
-                                      value="{{ $tecnology->id }}"
-                                      @if($project?->tecnologies->contains($tecnology->id)) checked @endif
-                                      name="tecnologies[]">
+                                        type="checkbox"
+                                        class="btn-check"
+                                        id="tecnology-{{ $tecnology->id }}"
+                                        value="{{ $tecnology->id }}"
+                                        {{-- $errors->count() mi restituisce quanti errori ci sono stati --}}
+                                        {{-- se non ci sono errori, devo checkare solo se mi trovo nell'edit --}}
+                                        @if(!$errors->count() && $project?->tecnologies->contains( $tecnology->id ) ) checked @endif
+                                        {{-- se ci sono errori, devo checkare i vecchi elementi passati dall'old --}}
+                                        @if($errors->count() && in_array($tecnology->id,old('tecnologies'))) checked @endif
+                                        name="tecnologies[]">
                                     <label class="btn btn-outline-info badge" for="tecnology-{{ $tecnology->id }}">{{ $tecnology->name }}</label>
                                 @endforeach
                             </div>
@@ -136,11 +140,11 @@
 
                             <div class="mb-3 position-relative">
                                 <img
-                                  id="image-preview"
-                                  class="img-fluid rounded"
-                                  onerror="this.src ='/img/placeholder.png'"
-                                  src="{{ asset('storage/'. $project?->image ) }}"
-                                  alt="{{ $project?->image_name }}">
+                                    id="image-preview"
+                                    class="img-fluid rounded"
+                                    onerror="this.src ='/img/placeholder.png'"
+                                    src="{{ asset('storage/'. $project?->image ) }}"
+                                    alt="{{ $project?->image_name }}">
                                 @if ($project)
                                     <a class="btn btn-secondary position-absolute end-0 top-0" href="{{ route('admin.project.delete-image', $project)}}"><i class="fa-solid fa-xmark"></i></a>
                                 @endif

@@ -27,10 +27,17 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <p>
-                                    <span>Type:</span>
-                                    <span class="badge text-bg-info">{{ $project->type->name }}</span>
-                                </p>
+                                @if ($project->type)
+                                    <p>
+                                        <span>Type:</span>
+                                        <span class="badge text-bg-info">{{ $project->type->name }}</span>
+                                    </p>
+                                @else
+                                    <p>
+                                        <span>Type:</span>
+                                        <span class="badge text-bg-warning">No Type</span>
+                                    </p>
+                                @endif
                                 <p>
                                     <span>Tecnology: </span>
                                     @forelse ($project->tecnologies as $tecnology)

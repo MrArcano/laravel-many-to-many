@@ -51,11 +51,16 @@
                         <td>{{$end_date ? date_format($end_date,'d/m/Y') : '-'}}</td>
                         <td>{{$project->status}}</td>
                         <td>{{$project->is_group_project}}</td>
-                        <td>{{$project->type->name ?? '-'}}</td>
+                        <td>
+                            @if ($project->type)
+                                <span class="badge text-bg-dark">{{$project->type->name}}</span>
+                            @else
+                                -
+                            @endif
+                        </td>
                         <td>
                             @forelse ($project->tecnologies as $tecnology)
                             <span class="badge text-bg-info">{{$tecnology->name}}</span>
-
                             @empty
                                 -
                             @endforelse
