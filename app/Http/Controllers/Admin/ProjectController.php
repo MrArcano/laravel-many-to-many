@@ -29,11 +29,10 @@ class ProjectController extends Controller
         // Lista dei progetti
         if($type_id_form){
             $projects = Project::where("type_id",$type_id_form)->orderBy("id","desc")->paginate(10);
+            $projects->appends(["type_id" => $type_id_form]);
         }else{
             $projects = Project::orderBy("id","desc")->paginate(10);
         }
-
-        $projects->appends(["type_id" => $type_id_form]);
 
         return view('admin.projects.index', compact('projects','types','type_id_form'));
     }
