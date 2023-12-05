@@ -38,6 +38,7 @@ Route::middleware(['auth','verified'])
             Route::resource('project', ProjectController::class);
             Route::get('project/{project}/delete-image',[ProjectController::class,'destroy_image'])->name('project.delete-image');
             Route::get('projects/tecnology/{tecnology}',[TecnologyController::class,'projectTecnology'])->name('tecnology.projects-tecnology');
+            Route::get('project/order-by/{field}/{order}',[ProjectController::class,'orderBy'])->name('project.order-by');
         });
 
 require __DIR__.'/auth.php';

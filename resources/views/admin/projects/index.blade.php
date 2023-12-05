@@ -12,9 +12,15 @@
         <table class="table table-success table-striped">
             <thead>
                 <tr>
-                    <th scope="col">#ID</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Data inizio</th>
+                    <th scope="col">
+                        <a href="{{route('admin.project.order-by',['field'=> 'id','order'=> $order])}}">#ID</a>
+                    </th>
+                    <th scope="col">
+                        <a href="{{route('admin.project.order-by',['field'=> 'name','order'=> $order])}}">Nome</a>
+                    </th>
+                    <th scope="col">
+                        <a href="{{route('admin.project.order-by',['field'=> 'start_date','order'=> $order])}}">Data inizio</a>
+                    </th>
                     <th scope="col">Data fine</th>
                     <th scope="col">Stato</th>
                     <th scope="col">Teamwork</th>

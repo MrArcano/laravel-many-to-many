@@ -28,13 +28,15 @@ class ProjectController extends Controller
 
         // Lista dei progetti
         if($type_id_form){
-            $projects = Project::where("type_id",$type_id_form)->orderBy("id","desc")->paginate(10);
+            $projects = Project::where("type_id",$type_id_form)->orderBy("id","asc")->paginate(10);
             $projects->appends(["type_id" => $type_id_form]);
         }else{
-            $projects = Project::orderBy("id","desc")->paginate(10);
+            $projects = Project::orderBy("id","asc")->paginate(10);
         }
 
-        return view('admin.projects.index', compact('projects','types','type_id_form'));
+        $order='asc';
+
+        return view('admin.projects.index', compact('projects','types','type_id_form','order'));
     }
 
     /**
@@ -179,5 +181,17 @@ class ProjectController extends Controller
         $project->update($form_data);
 
         return redirect()->route('admin.project.edit', $project);
+    }
+
+    public function orderBy($field , $order = 'asc'){
+
+        $types = Type::all();
+        $type_id_form = null;
+
+        $order = $order == 'asc' ? 'desc' : 'asc';
+        $projects = Project::orderBy($field, $order)->paginate(10);
+
+        return view('admin.projects.index', compact('projects','types','type_id_form','order'));
+
     }
 }
