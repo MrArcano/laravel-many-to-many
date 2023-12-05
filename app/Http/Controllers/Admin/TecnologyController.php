@@ -119,7 +119,8 @@ class TecnologyController extends Controller
         $projects = $tecnology->projects()->paginate(10);
 
         $type_id_form = null;
+        $order='asc';
 
-        return view('admin.projects.index', compact('projects','types','type_id_form','tecnology'));
+        return view('admin.projects.index', compact('projects','types','type_id_form','tecnology','order'));
     }
 }

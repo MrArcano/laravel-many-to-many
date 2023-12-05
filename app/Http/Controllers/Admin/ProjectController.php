@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\ProjectRequest;
 use App\Models\Project;
 use App\Models\Tecnology;
 use App\Models\Type;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -188,10 +189,20 @@ class ProjectController extends Controller
         $types = Type::all();
         $type_id_form = null;
 
-        $order = $order == 'asc' ? 'desc' : 'asc';
         $projects = Project::orderBy($field, $order)->paginate(10);
+        $order = $order == 'asc' ? 'desc' : 'asc';
 
         return view('admin.projects.index', compact('projects','types','type_id_form','order'));
+    }
 
+    public function noTecnology(){
+        $types = Type::all();
+        $type_id_form = null;
+        $order = 'asc';
+        $projects = Project::whereNotIn('id', function(QueryBuilder $query){
+            $query->select('project_id')->from('project_tecnology');
+        })->paginate(10);
+
+        return view('admin.projects.index', compact('projects','types','type_id_form','order'));
     }
 }

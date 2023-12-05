@@ -68,7 +68,7 @@
                             @forelse ($project->tecnologies as $tecnology)
                                 <a href="{{route('admin.tecnology.projects-tecnology',$tecnology)}}" class="badge text-bg-info text-decoration-none">{{$tecnology->name}}</a>
                             @empty
-                                -
+                                <a href="{{route('admin.project.no-tecnology')}}" class="badge text-bg-warning text-decoration-none">No Tecnology</a>
                             @endforelse
                         </td>
                         <td>

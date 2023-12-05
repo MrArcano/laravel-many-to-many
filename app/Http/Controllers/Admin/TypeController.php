@@ -114,9 +114,6 @@ class TypeController extends Controller
         // Lista dei tipi
         $types = Type::all();
 
-        dump($request->all());
-
-
         $type = $request->type_id;
 
         // Progetti che hanno la tecnologia ricercata
@@ -124,11 +121,11 @@ class TypeController extends Controller
 
         $projects->appends(["type_id" => $type]);
 
-        // dd($projects);
-
         $type_id_form = $type;
-        $tecnology = null;
 
-        return view('admin.projects.index', compact('projects','types','type_id_form','tecnology'));
+        $tecnology = null;
+        $order='asc';
+
+        return view('admin.projects.index', compact('projects','types','type_id_form','tecnology','order'));
     }
 }
