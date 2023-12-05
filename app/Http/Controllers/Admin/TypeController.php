@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Functions\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\TypeRequest;
+use App\Models\Project;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -106,5 +107,28 @@ class TypeController extends Controller
     {
         $type->delete();
         return redirect()->route('admin.type.index')->with('success','Cancellato con successo !');
+    }
+
+    public function projectType(Request $request){
+
+        // Lista dei tipi
+        $types = Type::all();
+
+        dump($request->all());
+
+
+        $type = $request->type_id;
+
+        // Progetti che hanno la tecnologia ricercata
+        $projects = Project::where("type_id",$type)->orderBy("id","desc")->paginate(10);
+
+        $projects->appends(["type_id" => $type]);
+
+        // dd($projects);
+
+        $type_id_form = $type;
+        $tecnology = null;
+
+        return view('admin.projects.index', compact('projects','types','type_id_form','tecnology'));
     }
 }

@@ -23,11 +23,8 @@ class ProjectController extends Controller
         // Lista dei tipi
         $types = Type::all();
 
-        // dump($_GET);
-
         // Filtro per id tipo
         $type_id_form = $request->type_id;
-        // dump($type_id_form);
 
         // Lista dei progetti
         if($type_id_form){
@@ -35,6 +32,9 @@ class ProjectController extends Controller
         }else{
             $projects = Project::orderBy("id","desc")->paginate(10);
         }
+
+        $projects->appends(["type_id" => $type_id_form]);
+
         return view('admin.projects.index', compact('projects','types','type_id_form'));
     }
 
@@ -143,10 +143,11 @@ class ProjectController extends Controller
 
         $project->update($form_data);
 
+        // Update della tabella pivot
+        $project->tecnologies()->detach();
         if(array_key_exists('tecnologies', $form_data)){
-            $project->tecnologies()->sync($form_data['tecnologies']);
-        }else{
-            $project->tecnologies()->detach();
+            $project->tecnologies()->attach($form_data['tecnologies']);
+            // $project->tecnologies()->sync($form_data['tecnologies']);
         }
         return redirect()->route('admin.project.show', $project)->with('success','Modificato con successo!');
     }

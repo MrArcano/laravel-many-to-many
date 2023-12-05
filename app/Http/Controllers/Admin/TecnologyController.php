@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Functions\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\TecnologyRequest;
+use App\Models\Project;
 use App\Models\Tecnology;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -109,6 +111,15 @@ class TecnologyController extends Controller
     }
 
     public function projectTecnology(Tecnology $tecnology){
-        return view('admin.tecnologies.projectsTecnology', compact('tecnology'));
+
+        // Lista dei tipi
+        $types = Type::all();
+
+        // Progetti che hanno la tecnologia ricercata
+        $projects = $tecnology->projects()->paginate(10);
+
+        $type_id_form = null;
+
+        return view('admin.projects.index', compact('projects','types','type_id_form','tecnology'));
     }
 }
